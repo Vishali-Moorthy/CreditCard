@@ -2,7 +2,6 @@ package com.bank.credit.controller;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 
@@ -40,6 +39,7 @@ public class UserControllerTest {
 	UserLoginDto userLoginDto = null;
 	UserLoginResponseDto userLoginResponseDto = null;
 	RegistrationRequestDto registrationRequestDto = null;
+	User user = null;
 
 	@Before
 	public void setup() {
@@ -60,8 +60,8 @@ public class UserControllerTest {
 		registrationRequestDto.setPhoneNumber(9087654123L);
 		registrationRequestDto.setSalary(14256D);
 		registrationRequestDto.setUserName("priya");
-		
-		User user = new User();
+
+		user = new User();
 		user.setAddress("fgeh");
 		user.setCompanyName(registrationRequestDto.getAddress());
 		user.setCompanyName(registrationRequestDto.getCompanyName());
@@ -72,7 +72,7 @@ public class UserControllerTest {
 		user.setSalary(registrationRequestDto.getSalary());
 		user.setUserId(1);
 		user.setUserName(registrationRequestDto.getUserName());
-		
+
 	}
 
 	@Test
@@ -83,12 +83,12 @@ public class UserControllerTest {
 		assertEquals(Constant.LOGIN_SUCCESS_CODE, result.getStatusCodeValue());
 
 	}
-	
+
 	@Test
 	public void testUserRegistration() throws EmailAlreadyExistException, SalaryLimitException, AgeNotValidException {
-	     userService.userRegistration(registrationRequestDto);
-	     ResponseEntity<RegistrationResponseDto> result = userController.userRegistration(registrationRequestDto);
-	     assertEquals(HttpStatus.OK, result.getStatusCode());
+		userService.userRegistration(registrationRequestDto);
+		ResponseEntity<RegistrationResponseDto> result = userController.userRegistration(registrationRequestDto);
+		assertEquals(HttpStatus.OK, result.getStatusCode());
 	}
 
 }

@@ -24,7 +24,6 @@ public class Constant {
 	public static final String MOBILE_NO = "Enter MobileNumber";
 	public static final String INVALID_EMAIL = "Invalid EmailId";
 	public static final String EMAILID_REQUIRED = "Enter EmailId";
-	public static final String PASSWORD_REQUIRED = "Enter Password";
 	public static final String USER_NOT_FOUND = "User Not Found";
 	
 	public static final Integer REGISTRATION_SUCCESSFUL_CODE = 201;

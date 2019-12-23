@@ -25,7 +25,7 @@ public class UserCardTransactionController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserCardTransactionDto> getAllTransactionByMonth(@PathVariable Integer userId,
 			@RequestParam Integer month, @RequestParam Integer year) throws UserNotFoundException {
-		return new ResponseEntity<>(userCardTransactionService.getAllTransaction(userId, month, year), HttpStatus.OK);
+		return new ResponseEntity<>(userCardTransactionService.getAllTransactionByMonth(userId, month, year), HttpStatus.OK);
 	}
 
 

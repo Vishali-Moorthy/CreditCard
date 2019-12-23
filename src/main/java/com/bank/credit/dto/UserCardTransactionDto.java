@@ -1,5 +1,6 @@
 package com.bank.credit.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import lombok.Getter;
@@ -13,5 +14,10 @@ public class UserCardTransactionDto {
 	private Long cardNumber;
 	private String holderName;
 	private Double availableAmount;
+	private LocalDate validFrom; 
+	private LocalDate validTo; 
+	private Integer cvv; 
+	private Double creditLimit;
+	
 
 }

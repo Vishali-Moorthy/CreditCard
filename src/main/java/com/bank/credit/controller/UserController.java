@@ -63,7 +63,7 @@ public class UserController {
 		userLoginResponseDto.setMessage(Constant.LOGIN_SUCCESS_MESSAGE);
 		userLoginResponseDto.setStatusCode(Constant.LOGIN_SUCCESS_CODE);
 		userLoginResponseDto.setLoginType(Constant.LOGIN_TYPE);
-		return new ResponseEntity<UserLoginResponseDto>(userLoginResponseDto, HttpStatus.OK);
+		return new ResponseEntity<>(userLoginResponseDto, HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -72,7 +72,7 @@ public class UserController {
 			RegistrationResponseDto registrationResponseDto = new RegistrationResponseDto();
 			registrationResponseDto.setStatusCode(Constant.REGISTRATION_SUCCESSFUL_CODE);
 			registrationResponseDto.setMessage(Constant.REGISTRATION_SUCCESSFUL);
-			return new ResponseEntity<RegistrationResponseDto>(registrationResponseDto,HttpStatus.OK);
+			return new ResponseEntity<>(registrationResponseDto,HttpStatus.OK);
 		}
 
 }

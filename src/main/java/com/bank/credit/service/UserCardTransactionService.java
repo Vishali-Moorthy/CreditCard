@@ -5,6 +5,8 @@ import com.bank.credit.exception.UserNotFoundException;
 
 public interface UserCardTransactionService {
 
-	UserCardTransactionDto getAllTransaction(Integer userId, Integer month, Integer year) throws UserNotFoundException;
+
+	UserCardTransactionDto getAllTransactionByMonth(Integer userId, Integer month, Integer year)
+			throws UserNotFoundException;
 
 }

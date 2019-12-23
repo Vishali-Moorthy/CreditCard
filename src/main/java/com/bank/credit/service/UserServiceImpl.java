@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,14 +91,7 @@ public class UserServiceImpl implements UserService {
 			throw new AgeNotValidException(Constant.AGE_NOT_VALID);
 		} else {
 			User user = new User();
-			user.setUserName(registrationRequestDto.getUserName());
-			user.setPhoneNumber(registrationRequestDto.getPhoneNumber());
-			user.setAddress(registrationRequestDto.getAddress());
-			user.setCompanyName(registrationRequestDto.getCompanyName());
-			user.setEmailId(registrationRequestDto.getEmailId());
-			user.setDateOfBirth(registrationRequestDto.getDateOfBirth());
-			user.setPassword(registrationRequestDto.getPassword());
-			user.setSalary(registrationRequestDto.getSalary());
+			BeanUtils.copyProperties(registrationRequestDto, user);
 			userRepository.save(user);
 			UserCard userCard = new UserCard();
 			userCard.setCreditLimit(Constant.CREDIT_LIMIT_MULTIPLIER * registrationRequestDto.getSalary());

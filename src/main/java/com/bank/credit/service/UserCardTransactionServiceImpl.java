@@ -34,7 +34,7 @@ public class UserCardTransactionServiceImpl implements UserCardTransactionServic
 	UserRepository userRepository;
 
 	@Override
-	public UserCardTransactionDto getAllTransaction(Integer userId, Integer month, Integer year)
+	public UserCardTransactionDto getAllTransactionByMonth(Integer userId, Integer month, Integer year)
 			throws UserNotFoundException {
 
 		Optional<User> user = userRepository.findById(userId);
@@ -55,9 +55,7 @@ public class UserCardTransactionServiceImpl implements UserCardTransactionServic
 				transactionLists.add(transactionListResponseDTO);
 			});
 			UserCardTransactionDto userCardTransactionDto = new UserCardTransactionDto();
-			userCardTransactionDto.setCardNumber(userCard.get().getCardNumber());
-			userCardTransactionDto.setHolderName(userCard.get().getHolderName());
-			userCardTransactionDto.setAvailableAmount(userCard.get().getAvailableAmount());
+			BeanUtils.copyProperties(userCard.get(), userCardTransactionDto);
 			userCardTransactionDto.setTransactions(transactionLists);
 			return userCardTransactionDto;
 		}
