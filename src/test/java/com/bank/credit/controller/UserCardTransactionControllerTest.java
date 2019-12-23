@@ -1,6 +1,7 @@
 package com.bank.credit.controller;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,8 +14,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.bank.credit.dto.TransactionListResponseDTO;
+import com.bank.credit.dto.TransactionRequestDto;
+import com.bank.credit.dto.TransactionResponseDto;
 import com.bank.credit.dto.UserCardTransactionDto;
 import com.bank.credit.entity.User;
 import com.bank.credit.entity.UserCard;
@@ -37,6 +42,7 @@ public class UserCardTransactionControllerTest {
 	UserCardTransactionDto userCardTransactionDto = null;
 	UserCardTransaction userCardTransaction = null;
 	TransactionListResponseDTO transactionListResponseDTO = null;
+	TransactionRequestDto transactionRequestDto = new TransactionRequestDto();
 
 	@Before
 	public void setup() {
@@ -55,6 +61,8 @@ public class UserCardTransactionControllerTest {
 		transactionListResponseDTO.setTransactionAmount(1000.0);
 		transactionListResponseDTO.setTransactionDate(LocalDate.parse("2019-12-02"));
 
+		transactionRequestDto.setCardNumber(78728832L);
+
 	}
 
 	@Test
@@ -72,5 +80,14 @@ public class UserCardTransactionControllerTest {
 		userCardTransactionController.getAllTransactionByMonth(1, 12, 2019);
 
 		assertNotNull(userCardTransactionDto);
+	}
+
+	@Test
+	public void testCreateTransaction() throws CardNotFoundException, UserNotFoundException {
+		Mockito.when(userCardTransactionService.createTransaction(transactionRequestDto))
+				.thenReturn(new TransactionResponseDto());
+		ResponseEntity<TransactionResponseDto> response = userCardTransactionController
+				.createTransaction(transactionRequestDto);
+		assertEquals(HttpStatus.OK.value(), response.getBody().getStatusCode());
 	}
 }

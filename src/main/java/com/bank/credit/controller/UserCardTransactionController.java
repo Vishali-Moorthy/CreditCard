@@ -35,9 +35,8 @@ import com.bank.credit.service.UserCardTransactionService;
 @RequestMapping("/transactions")
 @CrossOrigin
 public class UserCardTransactionController {
-	
-	private static final Logger log = LoggerFactory.getLogger(UserCardTransactionController.class);
 
+	private static final Logger log = LoggerFactory.getLogger(UserCardTransactionController.class);
 
 	/**
 	 * This will injects all the implementations of userCardTransactionService
@@ -59,11 +58,12 @@ public class UserCardTransactionController {
 	 */
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserCardTransactionDto> getAllTransactionByMonth(@PathVariable Integer userId,
-			@RequestParam Integer month, @RequestParam Integer year) throws UserNotFoundException, CardNotFoundException {
+			@RequestParam Integer month, @RequestParam Integer year)
+			throws UserNotFoundException, CardNotFoundException {
 		log.info("getAllTransaction controller method - getting All transactions");
 		return new ResponseEntity<>(userCardTransactionService.getAllTransaction(userId, month, year), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * create a transaction from buy a product from mega market product
 	 * 
@@ -72,9 +72,11 @@ public class UserCardTransactionController {
 	 * @throws CardNotFoundException
 	 */
 	@PostMapping
-	public ResponseEntity<TransactionResponseDto> createTransaction(@RequestBody TransactionRequestDto transactionRequestDto)
+	public ResponseEntity<TransactionResponseDto> createTransaction(
+			@RequestBody TransactionRequestDto transactionRequestDto)
 			throws CardNotFoundException, UserNotFoundException {
-		TransactionResponseDto transactionResponseDto = userCardTransactionService.createTransaction(transactionRequestDto);
+		TransactionResponseDto transactionResponseDto = userCardTransactionService
+				.createTransaction(transactionRequestDto);
 		transactionResponseDto.setMessage(Constant.SUCCESS);
 		transactionResponseDto.setStatusCode(HttpStatus.OK.value());
 		return new ResponseEntity<>(transactionResponseDto, HttpStatus.OK);

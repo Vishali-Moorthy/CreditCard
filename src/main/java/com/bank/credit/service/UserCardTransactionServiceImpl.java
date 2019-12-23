@@ -25,6 +25,7 @@ import com.bank.credit.exception.UserNotFoundException;
 import com.bank.credit.repository.UserCardRepository;
 import com.bank.credit.repository.UserCardTransactionRepository;
 import com.bank.credit.repository.UserRepository;
+
 /**
  * This service has method getAllTransactionByMonth is used to get all the
  * transactions by month
@@ -35,13 +36,13 @@ import com.bank.credit.repository.UserRepository;
  * @since 23-12-2019
  */
 @Service
-public class UserCardTransactionServiceImpl implements UserCardTransactionService{
-	
-	
+public class UserCardTransactionServiceImpl implements UserCardTransactionService {
+
 	private static final Logger log = LoggerFactory.getLogger(UserCardTransactionServiceImpl.class);
 
 	/**
-	 * This will injects all the implementations of userCardTransactionRepository method
+	 * This will injects all the implementations of userCardTransactionRepository
+	 * method
 	 */
 	@Autowired
 	UserCardTransactionRepository userCardTransactionRepository;
@@ -55,6 +56,7 @@ public class UserCardTransactionServiceImpl implements UserCardTransactionServic
 	 */
 	@Autowired
 	UserRepository userRepository;
+
 	/**
 	 * This method getAllTransactionByMonth is used to get all the transactions by
 	 * month
@@ -71,11 +73,13 @@ public class UserCardTransactionServiceImpl implements UserCardTransactionServic
 			throws UserNotFoundException, CardNotFoundException {
 		log.info("getAllTransaction service method - getting All transaction");
 		Optional<User> user = userRepository.findById(userId);
-		Optional<UserCard> userCard = userCardRepository.findByUser(user.get());
 		if (!user.isPresent()) {
 			log.error("getAllTransaction service method - UserNotFoundException occurs");
 			throw new UserNotFoundException(Constant.USER_NOT_FOUND);
-		}else if (!userCard.isPresent()) {
+		}
+
+		Optional<UserCard> userCard = userCardRepository.findByUser(user.get());
+		if (!userCard.isPresent()) {
 			log.error("getAllTransaction service method - UserNotFoundException occurs");
 			throw new CardNotFoundException(Constant.CARD_NOT_FOUND);
 		} else {
@@ -99,7 +103,7 @@ public class UserCardTransactionServiceImpl implements UserCardTransactionServic
 		}
 
 	}
-	
+
 	@Override
 	public TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto)
 			throws CardNotFoundException, UserNotFoundException {
@@ -119,10 +123,9 @@ public class UserCardTransactionServiceImpl implements UserCardTransactionServic
 		userCardTransaction.setTransactionDate(LocalDate.now());
 		userCardTransaction.setUser(user.get());
 		userCardTransaction.setUserCard(userCard.get());
-		userCardTransactionRepository.save(userCardTransaction);
+		userCardTransaction = userCardTransactionRepository.save(userCardTransaction);
 		transactionResponseDto.setTransactionId(userCardTransaction.getTransactionId());
 		return transactionResponseDto;
 	}
-
 
 }
