@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserLoginResponseDto {
-	
+
 	private String message;
 	private Integer statusCode;
 	private Integer userId;
