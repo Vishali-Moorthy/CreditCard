@@ -27,5 +27,8 @@ public class UserCardTransaction {
 		@ManyToOne
 		@JoinColumn(name = "cardNumber")
 		private UserCard userCard; 
+		@ManyToOne
+		@JoinColumn(name = "userId")
+		private User user; 
 
 }

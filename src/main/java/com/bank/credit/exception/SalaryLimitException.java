@@ -1,10 +1,10 @@
 package com.bank.credit.exception;
 
-public class UserNotFoundException extends Exception{
+public class SalaryLimitException extends Exception{
 	
 	private static final long serialVersionUID = 1L;
 
-	public UserNotFoundException(String message) {
+	public SalaryLimitException(String message) {
 		super(message);
 	}
 	

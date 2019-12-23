@@ -11,5 +11,7 @@ import com.bank.credit.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
 	Optional<User> findByEmailIdAndPassword(String userId, String password);
+	
+	Optional<User> findByEmailId(String emailId);
 
 }

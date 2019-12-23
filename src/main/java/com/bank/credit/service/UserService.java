@@ -1,7 +1,11 @@
 package com.bank.credit.service;
 
+import com.bank.credit.dto.RegistrationRequestDto;
 import com.bank.credit.dto.UserLoginDto;
 import com.bank.credit.dto.UserLoginResponseDto;
+import com.bank.credit.exception.AgeNotValidException;
+import com.bank.credit.exception.EmailAlreadyExistException;
+import com.bank.credit.exception.SalaryLimitException;
 import com.bank.credit.exception.UserNotFoundException;
 
 /**
@@ -22,5 +26,8 @@ public interface UserService {
 	 *                               found
 	 */
 	public UserLoginResponseDto loginUser(UserLoginDto userLoginDto) throws UserNotFoundException;
+
+	void userRegistration(RegistrationRequestDto registrationRequestDto)
+			throws EmailAlreadyExistException, SalaryLimitException, AgeNotValidException;
 
 }
