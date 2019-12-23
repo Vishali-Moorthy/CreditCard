@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,11 +21,7 @@ import com.bank.credit.entity.UserCard;
 import com.bank.credit.entity.UserCardTransaction;
 import com.bank.credit.exception.CardNotFoundException;
 import com.bank.credit.exception.UserNotFoundException;
-import com.bank.credit.repository.UserCardRepository;
-import com.bank.credit.repository.UserCardTransactionRepository;
-import com.bank.credit.repository.UserRepository;
 import com.bank.credit.service.UserCardTransactionService;
-import com.bank.credit.service.UserCardTransactionServiceImpl;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class UserCardTransactionControllerTest {

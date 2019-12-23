@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.bank.credit.constant.Constant;
 import com.bank.credit.dto.TransactionListResponseDTO;
+import com.bank.credit.dto.TransactionRequestDto;
+import com.bank.credit.dto.TransactionResponseDto;
 import com.bank.credit.dto.UserCardTransactionDto;
 import com.bank.credit.entity.User;
 import com.bank.credit.entity.UserCard;
@@ -96,6 +98,30 @@ public class UserCardTransactionServiceImpl implements UserCardTransactionServic
 			return userCardTransactionDto;
 		}
 
+	}
+	
+	@Override
+	public TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto)
+			throws CardNotFoundException, UserNotFoundException {
+		TransactionResponseDto transactionResponseDto = new TransactionResponseDto();
+		Optional<UserCard> userCard = userCardRepository.findByCardNumber(transactionRequestDto.getCardNumber());
+		if (!userCard.isPresent()) {
+			throw new CardNotFoundException(Constant.CARD_NOT_FOUND);
+		}
+
+		Optional<User> user = userRepository.findByEmailId(transactionRequestDto.getUserId());
+		if (!user.isPresent()) {
+			throw new UserNotFoundException(Constant.USER_NOT_FOUND);
+		}
+
+		UserCardTransaction userCardTransaction = new UserCardTransaction();
+		BeanUtils.copyProperties(transactionRequestDto, userCardTransaction);
+		userCardTransaction.setTransactionDate(LocalDate.now());
+		userCardTransaction.setUser(user.get());
+		userCardTransaction.setUserCard(userCard.get());
+		userCardTransactionRepository.save(userCardTransaction);
+		transactionResponseDto.setTransactionId(userCardTransaction.getTransactionId());
+		return transactionResponseDto;
 	}
 
 
