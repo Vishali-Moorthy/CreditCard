@@ -63,16 +63,31 @@ public class UserController {
 		userLoginResponseDto.setMessage(Constant.LOGIN_SUCCESS_MESSAGE);
 		userLoginResponseDto.setStatusCode(Constant.LOGIN_SUCCESS_CODE);
 		userLoginResponseDto.setLoginType(Constant.LOGIN_TYPE);
-		return new ResponseEntity<UserLoginResponseDto>(userLoginResponseDto, HttpStatus.OK);
+		return new ResponseEntity<>(userLoginResponseDto, HttpStatus.OK);
 	}
-	
+
+	/**
+	 * This method is used for user registration
+	 * 
+	 * @param registrationRequestDto has details to be entered by the user
+	 * @return the registrationResponseDto success message and success code
+	 * @throws EmailAlreadyExistException This exception occurs when the email
+	 *                                    already exists
+	 * @throws SalaryLimitException       This exception occurs when the salary
+	 *                                    exceed 10000
+	 * @throws AgeNotValidException       This exception occurs when the age is
+	 *                                    above 18
+	 */
 	@PostMapping
-	public ResponseEntity<RegistrationResponseDto> userRegistration(@Valid @RequestBody RegistrationRequestDto registrationRequestDto) throws EmailAlreadyExistException, SalaryLimitException, AgeNotValidException{
+	public ResponseEntity<RegistrationResponseDto> userRegistration(
+			@Valid @RequestBody RegistrationRequestDto registrationRequestDto)
+			throws EmailAlreadyExistException, SalaryLimitException, AgeNotValidException {
+		log.info("userRegistration controller method - registering the user");
 		userService.userRegistration(registrationRequestDto);
-			RegistrationResponseDto registrationResponseDto = new RegistrationResponseDto();
-			registrationResponseDto.setStatusCode(Constant.REGISTRATION_SUCCESSFUL_CODE);
-			registrationResponseDto.setMessage(Constant.REGISTRATION_SUCCESSFUL);
-			return new ResponseEntity<RegistrationResponseDto>(registrationResponseDto,HttpStatus.OK);
-		}
+		RegistrationResponseDto registrationResponseDto = new RegistrationResponseDto();
+		registrationResponseDto.setStatusCode(Constant.REGISTRATION_SUCCESSFUL_CODE);
+		registrationResponseDto.setMessage(Constant.REGISTRATION_SUCCESSFUL);
+		return new ResponseEntity<>(registrationResponseDto, HttpStatus.OK);
+	}
 
 }

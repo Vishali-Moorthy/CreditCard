@@ -26,6 +26,7 @@ public class Constant {
 	public static final String EMAILID_REQUIRED = "Enter EmailId";
 	public static final String PASSWORD_REQUIRED = "Enter Password";
 	public static final String USER_NOT_FOUND = "User Not Found";
+	public static final String CARD_NOT_FOUND = "Card Not Found";
 	
 	public static final Integer REGISTRATION_SUCCESSFUL_CODE = 201;
 	public static final Double SALARY_LIMIT = 10000.0;
