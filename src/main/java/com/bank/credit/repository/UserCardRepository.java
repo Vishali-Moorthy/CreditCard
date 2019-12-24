@@ -9,9 +9,10 @@ import com.bank.credit.entity.User;
 import com.bank.credit.entity.UserCard;
 
 @Repository
-public interface UserCardRepository extends JpaRepository<UserCard, Long>{
-	
+public interface UserCardRepository extends JpaRepository<UserCard, Long> {
+
 	Optional<UserCard> findByUser(User user);
-	
+
+	Optional<UserCard> findByCardNumber(Long cardNumber);
 
 }

@@ -1,8 +1,11 @@
 package com.bank.credit.service;
 
+import com.bank.credit.dto.TransactionRequestDto;
+import com.bank.credit.dto.TransactionResponseDto;
 import com.bank.credit.dto.UserCardTransactionDto;
 import com.bank.credit.exception.CardNotFoundException;
 import com.bank.credit.exception.UserNotFoundException;
+
 /**
  * This interface has method getAllTransaction is used to get all the
  * transactions by month
@@ -28,5 +31,8 @@ public interface UserCardTransactionService {
 	 * @throws CardNotFoundException This exception occurs when card is not found
 	 */
 	UserCardTransactionDto getAllTransactionByMonth(Integer userId, Integer month, Integer year) throws UserNotFoundException, CardNotFoundException;
+			
 
+	TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto)
+			throws CardNotFoundException, UserNotFoundException;
 }
