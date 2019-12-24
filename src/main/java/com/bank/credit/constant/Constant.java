@@ -12,7 +12,7 @@ public class Constant {
 
 	public static final String LOGIN_SUCCESS_MESSAGE = "Login Successful";
 
-	public static final String INALID_CREDENTIALS = "Invalid email or password";
+	public static final String INALID_CREDENTIALS = "Invalid Credentials";
 
 	
 	
@@ -25,6 +25,7 @@ public class Constant {
 	public static final String INVALID_EMAIL = "Invalid EmailId";
 	public static final String EMAILID_REQUIRED = "Enter EmailId";
 	public static final String USER_NOT_FOUND = "User Not Found";
+	public static final String CARD_NOT_FOUND = "Card Not Found";
 	
 	public static final Integer REGISTRATION_SUCCESSFUL_CODE = 201;
 	public static final Double SALARY_LIMIT = 10000.0;

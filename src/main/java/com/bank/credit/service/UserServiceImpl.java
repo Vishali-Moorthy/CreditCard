@@ -28,7 +28,12 @@ import com.bank.credit.repository.UserRepository;
 /**
  * This service has the method loginUser for login the user
  * 
+ * @Api loginUser method is used to login the user
+ * @Api userRegistration method iis used to register the new user
+ * 
  * @author Vishalakshi D
+ * @author Priyadharshini S
+ *  
  * @version V1.1
  * @since 23-12-2019
  */
@@ -75,24 +80,39 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
-	
+	/**
+	 * This method is used for user registration
+	 * 
+	 * @param registrationRequestDto has details to be entered by the user
+	 * @return the registrationResponseDto success message and success code
+	 * @throws EmailAlreadyExistException This exception occurs when the email
+	 *                                    already exists
+	 * @throws SalaryLimitException       This exception occurs when the salary
+	 *                                    exceed 10000
+	 * @throws AgeNotValidException       This exception occurs when the age is
+	 *                                    above 18
+	 */
 	@Override
 	@Transactional
 	public void userRegistration(RegistrationRequestDto registrationRequestDto)
 			throws EmailAlreadyExistException, SalaryLimitException, AgeNotValidException {
-
+		log.info("userRegistration service method - registering the user");
 		Optional<User> optionalUser = userRepository.findByEmailId(registrationRequestDto.getEmailId());
 		Integer age = LocalDate.now().getYear() - registrationRequestDto.getDateOfBirth().getYear();
 		if (optionalUser.isPresent()) {
+			log.error("userRegistration service method - EmailAlreadyExistException occurs");
 			throw new EmailAlreadyExistException(Constant.EMAILID_ALREADY_EXIST);
 		} else if (registrationRequestDto.getSalary() < Constant.SALARY_LIMIT) {
+			log.error("userRegistration service method - SalaryLimitException occurs");
 			throw new SalaryLimitException(Constant.SALARY_LIMIT_EXCEEDED);
 		} else if (age <= Constant.AGE_LIMIT) {
+			log.error("userRegistration service method - AgeNotValidException occurs");
 			throw new AgeNotValidException(Constant.AGE_NOT_VALID);
 		} else {
 			User user = new User();
 			BeanUtils.copyProperties(registrationRequestDto, user);
 			userRepository.save(user);
+			log.info("userRegistration service method - registered the user");
 			UserCard userCard = new UserCard();
 			userCard.setCreditLimit(Constant.CREDIT_LIMIT_MULTIPLIER * registrationRequestDto.getSalary());
 			userCard.setValidFrom(LocalDate.now());
@@ -104,6 +124,7 @@ public class UserServiceImpl implements UserService {
 			userCard.setUser(user);
 			userCard.setHolderName(user.getUserName());
 			userCardRepository.save(userCard);
+			log.info("userRegistration service method - added the userCard information");
 		}
 
 	}

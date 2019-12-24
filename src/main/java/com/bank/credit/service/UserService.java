@@ -11,7 +11,13 @@ import com.bank.credit.exception.UserNotFoundException;
 /**
  * This interface has method loginUser for login the user
  * 
+* 
+ * @Api loginUser method is used to login the user
+ * @Api userRegistration method iis used to register the new user
+ * 
  * @author Vishalakshi D
+ * @author Priyadharshini S
+ *  
  * @version V1.1
  * @since 23-12-2019
  */
@@ -26,7 +32,18 @@ public interface UserService {
 	 *                               found
 	 */
 	public UserLoginResponseDto loginUser(UserLoginDto userLoginDto) throws UserNotFoundException;
-
+	/**
+	 * This method is used for user registration
+	 * 
+	 * @param registrationRequestDto has details to be entered by the user
+	 * @return the registrationResponseDto success message and success code
+	 * @throws EmailAlreadyExistException This exception occurs when the email
+	 *                                    already exists
+	 * @throws SalaryLimitException       This exception occurs when the salary
+	 *                                    exceed 10000
+	 * @throws AgeNotValidException       This exception occurs when the age is
+	 *                                    above 18
+	 */
 	void userRegistration(RegistrationRequestDto registrationRequestDto)
 			throws EmailAlreadyExistException, SalaryLimitException, AgeNotValidException;
 
