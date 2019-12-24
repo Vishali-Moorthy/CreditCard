@@ -2,10 +2,10 @@ package com.bank.credit.service;
 
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.Random;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -118,15 +118,23 @@ public class UserServiceImpl implements UserService {
 			userCard.setValidFrom(LocalDate.now());
 			userCard.setValidTo(LocalDate.now().plusYears(Constant.VALID_TO_CONSTANT));
 			userCard.setAvailableAmount(Constant.CREDIT_LIMIT_MULTIPLIER * registrationRequestDto.getSalary());
-			Random random = new Random();
-			Integer cvv = random.nextInt(Constant.CVV_RANDOM_NUMBER_MAX) + Constant.CVV_RANDOM_NUMBER_MIN;
-			userCard.setCvv(cvv);
+			userCard.setCvv(generateCvvValue());
 			userCard.setUser(user);
 			userCard.setHolderName(user.getUserName());
 			userCardRepository.save(userCard);
 			log.info("userRegistration service method - added the userCard information");
 		}
 
+	}
+	
+	/**
+	 * get the cvv value based on the numeric values.
+	 * 
+	 * @return return the long value of the generated cvv value.
+	 */
+	private Integer generateCvvValue() {
+		String number = RandomStringUtils.random(3, false, true);
+		return Integer.valueOf(number);
 	}
 
 

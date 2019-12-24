@@ -120,6 +120,11 @@ public class UserCardTransactionServiceImpl implements UserCardTransactionServic
 			throw new UserNotFoundException(Constant.USER_NOT_FOUND);
 		}
 
+		UserCard updateUserCard = userCard.get();
+		Double availableAmount = (userCard.get().getAvailableAmount() - transactionRequestDto.getTransactionAmount());
+		updateUserCard.setAvailableAmount(availableAmount);
+		userCardRepository.save(updateUserCard);
+		
 		UserCardTransaction userCardTransaction = new UserCardTransaction();
 		BeanUtils.copyProperties(transactionRequestDto, userCardTransaction);
 		userCardTransaction.setTransactionDate(LocalDate.now());

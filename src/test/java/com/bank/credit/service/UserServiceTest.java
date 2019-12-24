@@ -149,6 +149,7 @@ public class UserServiceTest {
 		Mockito.when(userRepository.save(user)).thenReturn(user);
 		Mockito.when(userCardRepository.save(UserCard)).thenReturn(UserCard);
 		userServiceImpl.userRegistration(registrationRequestDto);
+		assertEquals("vishali@gmail.com", user.getEmailId());
 	}
 
 }

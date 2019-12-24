@@ -171,9 +171,11 @@ public class UserCardTransactionServiceTest {
 	@Test
 	public void testCreateTransaction() throws CardNotFoundException, UserNotFoundException {
 		transactionRequestDto.setUserId("moorthy127@ggmail.com");
+		transactionRequestDto.setTransactionAmount(5000.00);
 		userCardTransaction.setTransactionId(123456L);
 		user.setEmailId("moorthy127@ggmail.com");
-		
+
+		userCard.setAvailableAmount(10000.00);
 		Mockito.when(userCardRepository.findByCardNumber(transactionRequestDto.getCardNumber()))
 				.thenReturn(Optional.of(userCard));
 		Mockito.when(userRepository.findByEmailId(transactionRequestDto.getUserId())).thenReturn(Optional.of(user));
